@@ -10,36 +10,31 @@ const winningMoves = {
   scissors: "paper",
 };
 
-const resultElement = document.querySelector(".result");
-const movesElement = document.querySelector(".moves");
-const scoreElement = document.querySelector(".board");
-const resetButton = document.getElementById("reset-score");
-
 let score = JSON.parse(localStorage.getItem("score")) || {
   wins: 0,
   losses: 0,
   ties: 0,
 };
 
-updateScoreElement();
-
-document.querySelectorAll(".move-btn").forEach((button) => {
-  button.addEventListener("click", () => {
-    playGame(button.dataset.move);
-  });
-});
-
-resetButton.addEventListener("click", () => {
-  score = {
-    wins: 0,
-    losses: 0,
-    ties: 0,
-  };
-
-  localStorage.removeItem("score");
+$(document).ready(function () {
   updateScoreElement();
-  resultElement.textContent = "Score reset.";
-  movesElement.textContent = "";
+
+  $(".move-btn").on("click", function () {
+    playGame($(this).data("move"));
+  });
+
+  $("#reset-score").on("click", function () {
+    score = {
+      wins: 0,
+      losses: 0,
+      ties: 0,
+    };
+
+    localStorage.removeItem("score");
+    updateScoreElement();
+    $(".result").text("Score reset.");
+    $(".moves").text("");
+  });
 });
 
 function playGame(playerMove) {
@@ -75,17 +70,17 @@ function updateScore(result) {
 }
 
 function updateScoreElement() {
-  scoreElement.textContent = `Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`;
+  $(".board").text(`Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`);
 }
 
 function showRound(playerMove, computerMove, result) {
-  resultElement.textContent = result;
-  movesElement.innerHTML = `
+  $(".result").text(result);
+  $(".moves").html(`
     You
     <img src="${getMoveIcon(playerMove)}" alt="${moveNames[playerMove]}" class="move-icon">
     <img src="${getMoveIcon(computerMove)}" alt="${moveNames[computerMove]}" class="move-icon">
     Computer
-  `;
+  `);
 }
 
 function getMoveIcon(move) {

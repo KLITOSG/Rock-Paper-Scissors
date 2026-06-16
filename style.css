@@ -1,6 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
@@ -8,7 +12,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   margin: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -16,7 +21,7 @@ body {
 }
 
 h1 {
-  font-size: 42px;
+  font-size: clamp(32px, 8vw, 42px);
   font-weight: 900;
   margin: 0 0 20px;
 }
@@ -30,22 +35,23 @@ h1 {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: clamp(10px, 3vw, 20px);
   margin-top: 24px;
 }
 
 .move-icon {
-  height: 70px;
+  height: clamp(44px, 13vw, 70px);
   vertical-align: middle;
 }
 
 .move-btn {
-  border: 8px solid white;
+  border: clamp(5px, 1.6vw, 8px) solid white;
   border-radius: 50%;
   background-color: transparent;
-  width: 150px;
-  height: 150px;
+  width: clamp(88px, 27vw, 150px);
+  height: clamp(88px, 27vw, 150px);
   cursor: pointer;
+  touch-action: manipulation;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
@@ -56,15 +62,21 @@ h1 {
   outline: none;
 }
 
+.game-output {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .resultCss {
-  font-size: 30px;
+  font-size: clamp(24px, 7vw, 30px);
   font-weight: bolder;
-  margin-top: 48px;
+  margin: 40px 0 0;
 }
 
 .moveCss {
   min-height: 80px;
-  margin-top: 36px;
+  margin: 32px 0 0;
   font-weight: 600;
   display: flex;
   justify-content: center;
@@ -74,7 +86,7 @@ h1 {
 }
 
 .scoreCss {
-  margin-top: 36px;
+  margin: 32px 0 0;
   font-weight: 700;
 }
 
@@ -86,6 +98,7 @@ h1 {
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
+  touch-action: manipulation;
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -97,17 +110,41 @@ h1 {
 }
 
 @media (max-width: 520px) {
-  h1 {
-    font-size: 34px;
+  body {
+    align-items: flex-start;
+    padding: 18px 12px;
+  }
+
+  .game-container {
+    padding: 20px 0;
+  }
+
+  .move-buttons {
+    gap: 10px;
+  }
+
+  .moveCss {
+    min-height: 64px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 330px) {
+  .move-btn {
+    width: 78px;
+    height: 78px;
   }
 
   .move-icon {
-    height: 54px;
+    height: 38px;
   }
 
-  .move-btn {
-    width: 116px;
-    height: 116px;
-    border-width: 6px;
+  .resultCss {
+    margin-top: 30px;
+  }
+
+  .resetCss {
+    width: 100%;
+    max-width: 180px;
   }
 }
