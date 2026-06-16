@@ -13,6 +13,6 @@ A simple browser game built with HTML, CSS, and JavaScript.
 
 ## Files
 
-- `index.html` contains the page structure.
-- `style.css` contains the visual styling.
-- `script.js` contains the game logic and score updates.
+- `index.html` 
+- `style.css` 
+- `script.js` 
