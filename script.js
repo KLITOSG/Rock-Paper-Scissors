@@ -1,94 +1,115 @@
-const moves = ["rock", "paper", "scissors"];
-const moveNames = {
-  rock: "Rock",
-  paper: "Paper",
-  scissors: "Scissors",
-};
-const winningMoves = {
-  rock: "scissors",
-  paper: "rock",
-  scissors: "paper",
+let score = JSON.parse(localStorage.getItem('score')) || {
+wins:0,
+losses:0,
+ties:0
 };
 
-let score = JSON.parse(localStorage.getItem("score")) || {
-  wins: 0,
-  losses: 0,
-  ties: 0,
-};
 
-$(document).ready(function () {
-  updateScoreElement();
+ 
+updateScoreElement();
 
-  $(".move-btn").on("click", function () {
-    playGame($(this).data("move"));
-  });
-
-  $("#reset-score").on("click", function () {
-    score = {
-      wins: 0,
-      losses: 0,
-      ties: 0,
-    };
-
-    localStorage.removeItem("score");
-    updateScoreElement();
-    $(".result").text("Score reset.");
-    $(".moves").text("");
-  });
-});
-
-function playGame(playerMove) {
+function playGame(playerMove){
   const computerMove = pickComputerMove();
-  const result = getResult(playerMove, computerMove);
+  let result ='';
 
-  updateScore(result);
-  localStorage.setItem("score", JSON.stringify(score));
-  updateScoreElement();
-  showRound(playerMove, computerMove, result);
-}
+  if (playerMove === 'Rock'){
+    if (computerMove === 'Rock'){
+       result = 'Tie.';
+     }
+    else if (computerMove === 'Paper'){
+      result = 'You Lose.';
+    }
+    else {
+       result = 'You Win.';
 
-function getResult(playerMove, computerMove) {
-  if (playerMove === computerMove) {
-    return "Tie.";
+    }
   }
 
-  if (winningMoves[playerMove] === computerMove) {
-    return "You Win.";
+  else if(playerMove ==='Paper'){
+    if(computerMove === 'Rock'){
+      result = 'You Win.';
+    }
+  else if (computerMove === 'Paper'){
+       result = 'Tie.';
+    }
+   else {
+    result = 'You Lose.';
+    }
   }
-
-  return "You Lose.";
-}
-
-function updateScore(result) {
-  if (result === "You Win.") {
+  
+  else if (playerMove ==='Scissors'){
+    if(computerMove === 'Rock'){
+      result = 'You Lose.';
+    }
+    else if (computerMove === 'Paper'){
+      result = 'You Win.';
+    }
+    else {
+      result = 'Tie.';
+    }
+  }
+    
+  
+  if (result === 'You Win.') {
     score.wins += 1;
-  } else if (result === "You Lose.") {
-    score.losses += 1;
-  } else {
-    score.ties += 1;
+    
   }
-}
+
+  else if(result === 'You Lose.') {
+    score.losses += 1;      
+  }
+
+ else if(result === 'Tie.') {
+    score.ties +=1
+  }
+
+  
+
+  localStorage.setItem('score', JSON.stringify(score));
+
+  updateScoreElement();
+   
+  document.querySelector('.result')
+   .innerHTML = result;
+
+  document.querySelector('.moves')
+    .innerHTML = `  
+      You  
+      <img src="images/${playerMove.toLowerCase()}-emoji.png" class="move-icon">
+    
+      <img src="images/${computerMove.toLowerCase()}-emoji.png" class="move-icon">
+      Computer`;
+    
+};
+ 
+function updateResult() {
+   document.querySelector('.result')
+   .innerHTML = result;
+};
 
 function updateScoreElement() {
-  $(".board").text(`Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties}`);
-}
+  document.querySelector('.board')
+    .innerText = ` Wins: ${score.wins} Losses: ${score.losses} Ties: ${score.ties} `;
+};
 
-function showRound(playerMove, computerMove, result) {
-  $(".result").text(result);
-  $(".moves").html(`
-    You
-    <img src="${getMoveIcon(playerMove)}" alt="${moveNames[playerMove]}" class="move-icon">
-    <img src="${getMoveIcon(computerMove)}" alt="${moveNames[computerMove]}" class="move-icon">
-    Computer
-  `);
-}
+function pickComputerMove(){
 
-function getMoveIcon(move) {
-  return `images/${move}-emoji.png`;
-}
+  const randomNumber = Math.random();
+  let computerMove = '';
+ 
 
-function pickComputerMove() {
-  const randomIndex = Math.floor(Math.random() * moves.length);
+ if(randomNumber >= 0 && randomNumber < 1/3){
+   computerMove = 'Rock';
+ 
+  } 
+  else if (randomNumber >= 1/3 && randomNumber < 2/3){
+    computerMove = 'Paper';
+  }
+  else {
+    computerMove = 'Scissors' ;
+  };
 
-  return moves[randomIndex];
+  return computerMove;
+  
+
 }

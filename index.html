@@ -12,15 +12,15 @@
       <h1>Rock Paper Scissors</h1>
 
       <div class="move-buttons" aria-label="Choose your move">
-        <button type="button" class="move-btn" data-move="rock" aria-label="Play Rock">
+        <button onclick="playGame('Rock')" class="move-btn" aria-label="Play Rock">
           <img src="images/rock-emoji.png" alt="Rock" class="move-icon">
         </button>
 
-        <button type="button" class="move-btn" data-move="paper" aria-label="Play Paper">
+        <button onclick="playGame('Paper')" class="move-btn" aria-label="Play Paper">
           <img src="images/paper-emoji.png" alt="Paper" class="move-icon">
         </button>
 
-        <button type="button" class="move-btn" data-move="scissors" aria-label="Play Scissors">
+        <button onclick="playGame('Scissors')" class="move-btn" aria-label="Play Scissors">
           <img src="images/scissors-emoji.png" alt="Scissors" class="move-icon">
         </button>
       </div>
@@ -30,17 +30,19 @@
         <p class="moves moveCss"></p>
         <p class="board scoreCss"></p>
 
-        <button type="button" id="reset-score" class="resetCss">Reset Score</button>
-
-        <button type="button"
-        id="auto-play"
-        class="autoPlayCss">
-          Auto Play
+        <button onclick ="
+     score.wins = 0;
+     score.losses = 0;
+     score.ties = 0; 
+     
+     localStorage.removeItem('score')
+     updateScoreElement();
+    " class="resetCss">
+          Reset Score
         </button>
       </section>
     </main>
 
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
