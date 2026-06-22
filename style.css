@@ -90,7 +90,8 @@ h1 {
   font-weight: 700;
 }
 
-.resetCss {
+.resetCss,
+.autoPlayCss {
   margin-top: 32px;
   padding: 12px 22px;
   border: none;
@@ -103,7 +104,9 @@ h1 {
 }
 
 .resetCss:hover,
-.resetCss:focus-visible {
+.resetCss:focus-visible,
+.autoPlayCss:hover,
+.autoPlayCss:focus-visible {
   background-color: rgb(255, 211, 105);
   transform: translateY(-2px);
   outline: none;
